@@ -13,7 +13,7 @@ public class SkipList {
     private static final int MAX_LEVEL = 16;
 
     private int levelCount = 1;
-
+    //遍历的入口，will record every level first value in update[]
     private Node head = new Node();  // 带头链表
 
     public Node find(int value) {
@@ -36,11 +36,11 @@ public class SkipList {
         Node newNode = new Node();
         newNode.data = value;
         newNode.maxLevel = level;
-        Node update[] = new Node[level];
+        Node[] update = new Node[level];
         for (int i = 0; i < level; ++i) {
             update[i] = head;
         }
-
+        // 找到第 i 层索引的插入位置，将插入位置前面的结点保存到 update 数组
         // record every level largest value which smaller than insert value in update[]
         Node p = head;
         for (int i = level - 1; i >= 0; --i) {
@@ -49,7 +49,7 @@ public class SkipList {
             }
             update[i] = p;// use update save node in search path
         }
-
+        // 更新各层的 forwards 结点，
         // in search path node next node become new node forwords(next)
         for (int i = 0; i < level; ++i) {
             newNode.forwards[i] = update[i].forwards[i];
@@ -106,7 +106,9 @@ public class SkipList {
         }
         System.out.println();
     }
+
     /**
+     * p=p.forwars[i]代表第i层的下一结点
      * 打印每一层所有数据。
      */
     @Override
@@ -125,10 +127,23 @@ public class SkipList {
         }
         return sb.toString();
     }
+
     public class Node {
         private int data = -1;
-        private Node[] forwards = new Node[MAX_LEVEL];
+        /**
+         * 当前索引总层数。
+         * 索引从 0 开始计数，到 maxLevel-1 为止。
+         * 第 0 层为原始链表，从下往上依次建立索引，最上层为第 maxLevel-1 层索引。
+         */
         private int maxLevel = 0;
+
+        /**
+         * 保存当前结点的所有下一跳结点。
+         * forwards[i] 表示当前结点在第 i 层索引的下一跳结点，i in [0, maxLevel-1]
+         * <p>
+         * 因为每个节点都有可能在多个索引层上，节点在索引层需要持有下个节点的引用，所以节点用数组去记录每层的下一个节点
+         */
+        private Node[] forwards = new Node[MAX_LEVEL];
 
         @Override
         public String toString() {
@@ -146,7 +161,7 @@ public class SkipList {
     public static void main(String[] args) {
         SkipList skipList = new SkipList();
         for (int i = 1; i <= 32; i++) {
-            skipList.insert(i);
+            skipList.insert((int) (Math.random() * 100));
         }
         System.out.println(skipList);
         System.out.println(skipList);
