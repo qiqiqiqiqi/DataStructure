@@ -1,5 +1,9 @@
 package com.qi.datastructure.java.hashtable_18;
 
+import java.util.Hashtable;
+import java.util.concurrent.ConcurrentHashMap;
+
+
 /**
  * @Description:散列表实现
  * @Author: Hoda
@@ -75,9 +79,7 @@ public class HashTable<K, V> {
             if (use >= table.length * LOAD_FACTOR) {
                 resize();
             }
-        }
-        // 解决散列冲突，使用链表法
-        else {
+        } else {// 解决散列冲突，使用链表法
             do {
                 tmp = tmp.next;
                 // key相同，覆盖旧的数据
@@ -94,6 +96,7 @@ public class HashTable<K, V> {
     }
 
     /**
+     * //https://blog.csdn.net/qq_42034205/article/details/90384772
      * 散列函数
      * <p>
      * 参考hashmap散列函数
@@ -103,11 +106,12 @@ public class HashTable<K, V> {
      */
     private int hash(Object key) {
         int h;
-        return (key == null) ? 0 : ((h = key.hashCode()) ^ (h >>> 16)) % table.length;
+        return (key == null) ? 0 : ((h = key.hashCode()) ^ (h >>> 16)) & (table.length - 1)/*% table.length*/;
     }
 
     /**
      * 扩容
+     * 集中搬移数据，数据多时，很大的时间复杂度
      */
     private void resize() {
         Entry<K, V>[] oldTable = table;
@@ -171,10 +175,24 @@ public class HashTable<K, V> {
         }
         while (e.next != null) {
             e = e.next;
-            if (key == e.key) {
+            if (/*key==e.key*/key.hashCode() == e.key.hashCode() && key.equals(e.key)) {
                 return e.value;
             }
         }
         return null;
     }
+
+    public static void main(String[] args) {
+        HashTable<String, Integer> stringStringHashTable = new HashTable<>();
+        Hashtable<String, Integer> systemHashTable = new Hashtable<>();
+        for (int i = 0; i < 100; i++) {
+            stringStringHashTable.put(i + "", i);
+            systemHashTable.put(i + "", i);
+        }
+        systemHashTable.size();
+        System.out.println("value=" + stringStringHashTable.get("11"));
+        System.out.println((19 + "") == (19 + ""));
+    }
+
+
 }

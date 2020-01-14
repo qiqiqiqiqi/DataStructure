@@ -1,6 +1,12 @@
 package com.qi.datastructure.java.skiplist_17;
 
 
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 跳表的一种实现方法。
  * 跳表中存储的是正整数，并且存储的是不重复的。
@@ -99,6 +105,12 @@ public class SkipList {
     }
 
     public void printAll() {
+        //LinkedHashMap
+//        Hashtable
+        HashMap<String, String> hashMap = new HashMap();
+        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+            System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
+        }
         Node p = head;
         while (p.forwards[0] != null) {
             System.out.print(p.forwards[0] + " ");
@@ -128,7 +140,8 @@ public class SkipList {
         return sb.toString();
     }
 
-    public class Node {
+    public class Node  {
+
         private int data = -1;
         /**
          * 当前索引总层数。
