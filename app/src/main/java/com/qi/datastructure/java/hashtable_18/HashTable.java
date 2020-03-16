@@ -1,6 +1,8 @@
 package com.qi.datastructure.java.hashtable_18;
 
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -97,6 +99,7 @@ public class HashTable<K, V> {
 
     /**
      * //https://blog.csdn.net/qq_42034205/article/details/90384772
+     * https://www.jianshu.com/p/ee0de4c99f87
      * 散列函数
      * <p>
      * 参考hashmap散列函数
@@ -152,7 +155,7 @@ public class HashTable<K, V> {
         do {
             pre = e;
             e = e.next;
-            if (key == e.key) {
+            if (/*key==e.key*/key.hashCode() == e.key.hashCode() && key.equals(e.key)) {
                 pre.next = e.next;
                 size--;
                 if (headNode.next == null) use--;
@@ -185,10 +188,14 @@ public class HashTable<K, V> {
     public static void main(String[] args) {
         HashTable<String, Integer> stringStringHashTable = new HashTable<>();
         Hashtable<String, Integer> systemHashTable = new Hashtable<>();
-        for (int i = 0; i < 100; i++) {
-            stringStringHashTable.put(i + "", i);
-            systemHashTable.put(i + "", i);
+        LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
+
+        for (int i = 0; i < 3; i++) {
+//            stringStringHashTable.put(i + "", i);
+//            systemHashTable.put(i + "", i);
+            linkedHashMap.put(0 + "", i);
         }
+        for (Map.Entry e : linkedHashMap.entrySet()) { System.out.println(e.getKey());}
         systemHashTable.size();
         System.out.println("value=" + stringStringHashTable.get("11"));
         System.out.println((19 + "") == (19 + ""));

@@ -105,7 +105,7 @@ public class SkipList {
     }
 
     public void printAll() {
-        //LinkedHashMap
+
 //        Hashtable
         HashMap<String, String> hashMap = new HashMap();
         for (Map.Entry<String, String> entry : hashMap.entrySet()) {
