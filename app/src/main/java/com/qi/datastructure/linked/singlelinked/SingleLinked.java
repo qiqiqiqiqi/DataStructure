@@ -5,35 +5,46 @@ import com.qi.datastructure.linked.Node;
 
 public class SingleLinked<T> {
 
-    private Node<T> head = new Node<>(), tail = new Node<>();//哨兵节点
+    private Node<T> head;//哨兵节点
 
     public SingleLinked() {
+        head = new Node<>();
     }
 
-    private void setHeadTail() {
-        if (head != null) {
-            Node<T> currentNode = head;
-            while (currentNode != null) {
-                if (currentNode.next == null) {
-                    tail = currentNode;
-                }
-                currentNode = currentNode.next;
-            }
-        }
-    }
 
-    public SingleLinked add(Node<T> node) {
-        tail.next.next = node;
-        if (head.next == null) {
-            tail.next = node;
-        }
-        head.next = node;
+    public SingleLinked add(T value) {
+        addLast(value);
         return this;
     }
 
-    public SingleLinked remove(Node<T> node) {
+    public SingleLinked addFirst(T value) {
+        head.next = new Node<>(value, head.next);
+        return this;
+    }
 
-        if (head != null && node != null) {
+    public SingleLinked addLast(T value) {
+        Node<T> p = head;
+        while (p.next != null) {
+            p = p.next;
+        }
+        p.next = new Node<>(value, null);
+        return this;
+    }
+
+    public SingleLinked removeLast() {
+        Node<T> p = head;
+        if (head.next != null && head.next.next != null) {
+            while (p.next != null && p.next.next != null) {
+                p = p.next;
+            }
+            p.next = p.next.next;
+        }
+        return this;
+    }
+
+    public SingleLinked remove(T value) {
+        Node<T> node = new Node<>(value);
+        if (head != null) {
             if (head == node || head.equals(node)) {
                 node.next = head.next;
             }
@@ -51,7 +62,7 @@ public class SingleLinked<T> {
 
 
     public boolean isPalindrome() {
-        return isPalindrome(head);
+        return isPalindrome(head.next);
     }
 
     /**
@@ -128,13 +139,13 @@ public class SingleLinked<T> {
      * @return
      */
     private Node<T> reserve() {
-        return reserve(head);
+        return reserve(head.next);
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        Node currentNode = this.head;
+        Node currentNode = this.head.next;
         while (currentNode != null) {
             stringBuilder.append(currentNode.data).append(", ");
             currentNode = currentNode.next;

@@ -21,16 +21,27 @@ public class Test {
     public static void testSingleLinked() {
         int value = 3;
         SingleLinked<String> singleLinked = new SingleLinked<>();
-        for (int i = 0; i < value; i++) {
-            Node<String> node = new Node<>(i + "");
-            singleLinked.add(node);
+       /* for (int i = 0; i < value; i++) {
+            singleLinked.add(i + "");
         }
         for (int i = 0; i <= value; i++) {
-            Node<String> node = new Node<>((value - i) + "");
-            singleLinked.add(node);
+            singleLinked.add((value - i) + "");
         }
-        //list.get(list.size()-1).next=new Node<>(0 + "");
-
-        System.out.println("singleLinked isPalindrome " + singleLinked.isPalindrome());
+         System.out.println("singleLinked isPalindrome " + singleLinked.isPalindrome());
+        */
+        for (int i = 0; i <= value; i++) {
+            singleLinked.addFirst((value - i) + "");
+        }
+        System.out.println("singleLinked = " + singleLinked);
+        singleLinked.removeLast();
+        System.out.println("singleLinked = " + singleLinked);
+        singleLinked.removeLast();
+        System.out.println("singleLinked = " + singleLinked);
+        singleLinked.removeLast();
+        System.out.println("singleLinked = " + singleLinked);
+        singleLinked.removeLast();
+        System.out.println("singleLinked = " + singleLinked);
+        singleLinked.removeLast();
+        System.out.println("singleLinked = " + singleLinked);
     }
 }
