@@ -4,7 +4,6 @@ import com.qi.datastructure.linked.Node;
 import com.qi.datastructure.linked.singlelinked.SingleLinked;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class Test {
     public static void main(String[] args) {
@@ -20,24 +19,18 @@ public class Test {
     }
 
     public static void testSingleLinked() {
-        int value = 10;
-        ArrayList<Node<String>> list = new ArrayList<>();
+        int value = 3;
+        SingleLinked<String> singleLinked = new SingleLinked<>();
         for (int i = 0; i < value; i++) {
             Node<String> node = new Node<>(i + "");
-            if (!list.isEmpty()) {
-                list.get(list.size() - 1).next = node;
-            }
-            list.add(node);
+            singleLinked.add(node);
         }
-        for (int i =0; i <= value; i++) {
+        for (int i = 0; i <= value; i++) {
             Node<String> node = new Node<>((value - i) + "");
-            if (!list.isEmpty()) {
-                list.get(list.size() - 1).next = node;
-            }
-            list.add(node);
+            singleLinked.add(node);
         }
+        //list.get(list.size()-1).next=new Node<>(0 + "");
 
-        SingleLinked<String> singleLinked = new SingleLinked<>(list.get(0));
         System.out.println("singleLinked isPalindrome " + singleLinked.isPalindrome());
     }
 }

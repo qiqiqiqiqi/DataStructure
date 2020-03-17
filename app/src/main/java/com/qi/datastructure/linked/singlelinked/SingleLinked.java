@@ -5,17 +5,53 @@ import com.qi.datastructure.linked.Node;
 
 public class SingleLinked<T> {
 
-    public Node<T> root;
+    private Node<T> head = new Node<>(), tail = new Node<>();//哨兵节点
 
     public SingleLinked() {
     }
 
-    public SingleLinked(Node<T> root) {
-        this.root = root;
+    private void setHeadTail() {
+        if (head != null) {
+            Node<T> currentNode = head;
+            while (currentNode != null) {
+                if (currentNode.next == null) {
+                    tail = currentNode;
+                }
+                currentNode = currentNode.next;
+            }
+        }
     }
 
+    public SingleLinked add(Node<T> node) {
+        tail.next.next = node;
+        if (head.next == null) {
+            tail.next = node;
+        }
+        head.next = node;
+        return this;
+    }
+
+    public SingleLinked remove(Node<T> node) {
+
+        if (head != null && node != null) {
+            if (head == node || head.equals(node)) {
+                node.next = head.next;
+            }
+            Node<T> currentNode = head;
+            while (currentNode != null) {
+                if (currentNode.next == node || currentNode.next.equals(node)) {
+                    currentNode.next = currentNode.next.next;
+                    break;
+                }
+                currentNode = currentNode.next;
+            }
+        }
+        return this;
+    }
+
+
     public boolean isPalindrome() {
-        return isPalindrome(root);
+        return isPalindrome(head);
     }
 
     /**
@@ -76,9 +112,9 @@ public class SingleLinked<T> {
      * @return
      */
     private Node<T> reserve(Node<T> currentNode) {
-        Node firstNode = null;
+        Node<T> firstNode = null;
         while (currentNode != null) {
-            Node next = currentNode.next;
+            Node<T> next = currentNode.next;
             currentNode.next = firstNode;
             firstNode = currentNode;
             currentNode = next;
@@ -86,10 +122,19 @@ public class SingleLinked<T> {
         return firstNode;
     }
 
+    /**
+     * 整条链表反转
+     *
+     * @return
+     */
+    private Node<T> reserve() {
+        return reserve(head);
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        Node currentNode = this.root;
+        Node currentNode = this.head;
         while (currentNode != null) {
             stringBuilder.append(currentNode.data).append(", ");
             currentNode = currentNode.next;
