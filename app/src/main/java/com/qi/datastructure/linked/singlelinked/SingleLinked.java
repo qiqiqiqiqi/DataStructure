@@ -33,7 +33,7 @@ public class SingleLinked<T> {
 
     public SingleLinked removeLast() {
         Node<T> p = head;
-        if (head.next != null && head.next.next != null) {
+        if (head.next != null) {
             while (p.next != null && p.next.next != null) {
                 p = p.next;
             }
