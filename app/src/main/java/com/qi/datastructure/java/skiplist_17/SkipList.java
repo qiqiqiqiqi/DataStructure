@@ -53,16 +53,16 @@ public class SkipList {
             while (p.forwards[i] != null && p.forwards[i].data < value) {
                 p = p.forwards[i];
             }
-            update[i] = p;// use update save node in search path
+            update[i] = p;// use update save Node in search path
         }
         // 更新各层的 forwards 结点，
-        // in search path node next node become new node forwords(next)
+        // in search path Node next Node become new Node forwords(next)
         for (int i = 0; i < level; ++i) {
             newNode.forwards[i] = update[i].forwards[i];
             update[i].forwards[i] = newNode;
         }
 
-        // update node hight
+        // update Node hight
         if (levelCount < level) levelCount = level;
     }
 
@@ -178,9 +178,9 @@ public class SkipList {
         }
         System.out.println(skipList);
         System.out.println(skipList);
-       /* Node node = skipList.find(11);
-        if (node != null) {
-            System.out.println(node);
+       /* Node Node = skipList.find(11);
+        if (Node != null) {
+            System.out.println(Node);
         } else {
             System.out.println("not found");
         }
@@ -188,9 +188,9 @@ public class SkipList {
         skipList.delete(11);
         System.out.println(skipList);
 
-        node = skipList.find(11);
-        if (node != null) {
-            System.out.println(node);
+        Node = skipList.find(11);
+        if (Node != null) {
+            System.out.println(Node);
         } else {
             System.out.println("not found");
         }*/

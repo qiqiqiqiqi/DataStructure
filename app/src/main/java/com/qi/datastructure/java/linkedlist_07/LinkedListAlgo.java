@@ -82,7 +82,7 @@ public class LinkedListAlgo {
     // 有序链表合并 Leetcode 21 
 
     /**
-     * Definition for singly-linked list.
+     * Definition for singly-com.qi.datastructure.linked list.
      */
     public class ListNode {
         int val;
