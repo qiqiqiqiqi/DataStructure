@@ -12,26 +12,24 @@ public class SingleLinked<T> {
     }
 
 
-    public SingleLinked add(T value) {
+    public void add(T value) {
         addLast(value);
-        return this;
     }
 
-    public SingleLinked addFirst(T value) {
+    public void addFirst(T value) {
         head.next = new Node<>(value, head.next);
-        return this;
+
     }
 
-    public SingleLinked addLast(T value) {
+    public void addLast(T value) {
         Node<T> p = head;
         while (p.next != null) {
             p = p.next;
         }
         p.next = new Node<>(value, null);
-        return this;
     }
 
-    public SingleLinked removeLast() {
+    public void removeLast() {
         Node<T> p = head;
         if (head.next != null) {
             while (p.next != null && p.next.next != null) {
@@ -39,25 +37,39 @@ public class SingleLinked<T> {
             }
             p.next = p.next.next;
         }
-        return this;
+
     }
 
-    public SingleLinked remove(T value) {
-        Node<T> node = new Node<>(value);
-        if (head != null) {
-            if (head == node || head.equals(node)) {
-                node.next = head.next;
-            }
-            Node<T> currentNode = head;
-            while (currentNode != null) {
-                if (currentNode.next == node || currentNode.next.equals(node)) {
-                    currentNode.next = currentNode.next.next;
-                    break;
-                }
-                currentNode = currentNode.next;
-            }
+    public void remove(T value) {
+        if (value == null) {
+            return;
         }
-        return this;
+        Node<T> currentNode = head, p = null;
+        while (currentNode != null) {
+            if ((value == currentNode.data || value.equals(currentNode.data))) {
+                break;
+            }
+            p = currentNode;
+            currentNode = currentNode.next;
+        }
+        if (currentNode != null) {
+            p.next = p.next.next;
+        }
+
+    }
+
+    private Node<T> findByValue(T value) {
+        if (value == null) {
+            return null;
+        }
+        Node<T> currentNode = head;
+        while (currentNode != null) {
+            if (value == currentNode.data || value.equals(currentNode.data)) {
+                break;
+            }
+            currentNode = currentNode.next;
+        }
+        return currentNode;
     }
 
 
