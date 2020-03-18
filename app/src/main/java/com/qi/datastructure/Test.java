@@ -21,23 +21,22 @@ public class Test {
     public static void testSingleLinked() {
         int value = 3;
         SingleLinked<String> singleLinked = new SingleLinked<>();
-       /* for (int i = 0; i < value; i++) {
+        for (int i = 0; i < value; i++) {
             singleLinked.add(i + "");
         }
         for (int i = 0; i <= value; i++) {
             singleLinked.add((value - i) + "");
         }
          System.out.println("singleLinked isPalindrome " + singleLinked.isPalindrome());
-        */
-        for (int i = 0; i <= value; i++) {
+       /* for (int i = 0; i <= value; i++) {
             singleLinked.addFirst((value - i) + "");
-        }
+        }*/
         System.out.println("singleLinked = " + singleLinked);
         singleLinked.removeLast();
         System.out.println("singleLinked = " + singleLinked);
-        singleLinked.removeLast();
+        singleLinked.remove(2+"");
         System.out.println("singleLinked = " + singleLinked);
-        singleLinked.removeLast();
+        singleLinked.remove(1+"");
         System.out.println("singleLinked = " + singleLinked);
         singleLinked.removeLast();
         System.out.println("singleLinked = " + singleLinked);

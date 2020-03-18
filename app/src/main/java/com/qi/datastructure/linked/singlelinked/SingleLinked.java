@@ -29,21 +29,25 @@ public class SingleLinked<T> {
         p.next = new Node<>(value, null);
     }
 
+
     public void removeLast() {
-        Node<T> p = head;
-        if (head.next != null) {
-            while (p.next != null && p.next.next != null) {
-                p = p.next;
-            }
-            p.next = p.next.next;
+        if (head.next == null) {
+            return;
         }
+        Node<T> currentNode = head, p = null;
+        while (currentNode.next != null) {
+            p = currentNode;
+            currentNode = currentNode.next;
+        }
+        p.next = p.next.next;
 
     }
 
     public void remove(T value) {
-        if (value == null) {
+        if (value == null || head.next == null) {
             return;
         }
+        //
         Node<T> currentNode = head, p = null;
         while (currentNode != null) {
             if ((value == currentNode.data || value.equals(currentNode.data))) {
@@ -52,10 +56,7 @@ public class SingleLinked<T> {
             p = currentNode;
             currentNode = currentNode.next;
         }
-        if (currentNode != null) {
-            p.next = p.next.next;
-        }
-
+        p.next = p.next.next;
     }
 
     private Node<T> findByValue(T value) {
