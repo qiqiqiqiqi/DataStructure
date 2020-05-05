@@ -21,4 +21,6 @@ public class Node<T> {
     public String toString() {
         return data+"";
     }
+
+
 }
